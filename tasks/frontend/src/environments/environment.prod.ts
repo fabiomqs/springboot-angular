@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+    production: true, 
+    apiUrl: '',
+    logUrl: 'http://localhost:8081',
+    pageSize: 20,
 };
