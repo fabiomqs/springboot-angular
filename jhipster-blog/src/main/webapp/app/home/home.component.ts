@@ -1,36 +1,41 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
-import { AccountService } from 'app/core/auth/account.service';
-import { Account } from 'app/core/auth/account.model';
+import { IPost, Post } from 'app/entities/post/post.model';
+import { PostService } from 'app/entities/post/service/post.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'jhi-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+    selector: 'jhi-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  account: Account | null = null;
+export class HomeComponent implements OnInit {
+    
+    posts: Post[] = [];
+    
 
-  private readonly destroy$ = new Subject<void>();
+    constructor(
+        private postService: PostService, 
+        private router: Router
+    ) {}
 
-  constructor(private accountService: AccountService, private router: Router) {}
+    ngOnInit(): void {
+        this.loadAll();
+    }
 
-  ngOnInit(): void {
-    this.accountService
-      .getAuthenticationState()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(account => (this.account = account));
-  }
+    loadAll(): void {
+        //this.isLoading = true;
+    
+        this.postService.query().subscribe(
+            (res: HttpResponse<IPost[]>) => {
+            //    this.isLoading = false;
+                this.posts = res.body ?? [];
+            },
+            () => {
+                //this.isLoading = false;
+            }
+        );
+      }
 
-  login(): void {
-    this.router.navigate(['/login']);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }
