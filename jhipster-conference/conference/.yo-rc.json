@@ -39,6 +39,8 @@
     "skipCommitHook": true,
     "jwtSecretKey": "NGM4ZGZhZDA1M2JkNjdiYjQyZWZmYzkyZDZkNWExZDdhMDgwNmI4Mzc0ZmVhZjAyN2E2OTQ4YTBhZWI3Njc2MWExYWMyYWViZjViMWE4OGQ0NmQ2YWE0ZjFiN2IyNjNjZDNjOTA3NjgxOWYxMDg3N2Q4NDYyM2VhZmI4NWM4ZGE=",
     "enableGradleEnterprise": false,
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "entities": ["Speaker", "Session"],
+    "lastLiquibaseTimestamp": 1633768612000
   }
 }
